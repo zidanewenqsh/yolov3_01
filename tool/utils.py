@@ -94,7 +94,7 @@ def iou(box, boxes, mode='inter'):
         return np.divide(inter, np.minimum(box_area, boxes_areas))
 
 
-def nms(boxes, threh=0.3, mode='inter'):
+def nms(boxes, thresh=0.3, mode='inter'):
     boxes = toNumpy(boxes)
     if boxes.ndim == 1:
         return np.expand_dims(boxes, axis=0)
@@ -111,7 +111,7 @@ def nms(boxes, threh=0.3, mode='inter'):
         if boxes.shape[0] > 1:
             _boxes = sort_boxes[1:]
             _iou = iou(_box, _boxes, mode)
-            sort_boxes = _boxes[np.less(_iou, threh)]
+            sort_boxes = _boxes[np.less(_iou, thresh)]
         else:
             break
     return keep_boxes
